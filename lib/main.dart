@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import 'screen/profile/profile_screen.dart';
-import 'screen/auth/auth_screen.dart';
+import 'theme.dart';
+import '/routes.dart';
+import '/screen/home/home.dart';
+import 'screen/sign_in/sign_in_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,13 +22,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Chat App',
       debugShowCheckedModeBanner: false,
+      theme: theme(),
+      routes: routes,
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return const Profilepage();
+            return const HomeScreen();
           }
-          return const LoginScreen();
+          return const SignInScreen();
         },
       ),
     );
