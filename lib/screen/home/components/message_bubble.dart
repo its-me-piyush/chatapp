@@ -1,10 +1,16 @@
+import 'package:chatapp/constants.dart';
 import 'package:flutter/material.dart';
 
 class MessageBubble extends StatelessWidget {
-  const MessageBubble({Key? key, required this.isMe, required this.message})
+  const MessageBubble(
+      {Key? key,
+      required this.isMe,
+      required this.message,
+      required this.timeStamp})
       : super(key: key);
   final bool isMe;
   final String message;
+  final int timeStamp;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +19,9 @@ class MessageBubble extends StatelessWidget {
       children: <Widget>[
         Container(
             decoration: BoxDecoration(
-                color: isMe ? Colors.grey[300] : Colors.cyanAccent,
+                color: isMe
+                    ? Colors.deepPurple[400]
+                    : caPrimaryLightColor.withOpacity(0.64),
                 borderRadius: BorderRadius.only(
                   topLeft: const Radius.circular(12),
                   topRight: const Radius.circular(12),
@@ -33,11 +41,24 @@ class MessageBubble extends StatelessWidget {
               vertical: 4,
               horizontal: 8,
             ),
-            child: Text(
-              message,
-              style: const TextStyle(
-                color: Colors.black,
-              ),
+            child: Column(
+              children: [
+                Text(
+                  message,
+                  style: const TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Text(
+                    readTimestamp(timeStamp),
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              ],
             )),
       ],
     );

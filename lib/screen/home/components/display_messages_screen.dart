@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../constants.dart';
 import 'message_bubble.dart';
 
-
 class DisplayMessage extends StatelessWidget {
   const DisplayMessage({
     Key? key,
@@ -38,9 +37,9 @@ class DisplayMessage extends StatelessWidget {
                 reverse: true,
                 itemCount: data.length,
                 itemBuilder: (context, index) => MessageBubble(
-                  isMe:
-                      data[index]['from'] == cUser().uid ? true : false,
+                  isMe: data[index]['from'] == cUser().uid ? true : false,
                   message: data[index]['message'],
+                  timeStamp: data[index]['timeStamp'],
                 ),
               );
       },

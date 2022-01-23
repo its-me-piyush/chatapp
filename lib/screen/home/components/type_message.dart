@@ -49,7 +49,8 @@ class _TypeMessageState extends State<TypeMessage> {
                 child: TextField(
                   controller: _controller,
                   decoration: InputDecoration(
-                    labelText: 'Type!',
+                    labelText: '',
+                    hintText: 'Type Something!',
                     border: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.black,
