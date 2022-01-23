@@ -1,3 +1,4 @@
+import 'package:chatapp/constants.dart';
 import 'package:flutter/material.dart';
 
 import 'type_message.dart';
@@ -16,6 +17,7 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: caPrimaryColor,
         title: Text(name),
       ),
       body: Column(

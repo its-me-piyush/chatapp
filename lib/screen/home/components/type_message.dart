@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../constants.dart';
 
-
 class TypeMessage extends StatefulWidget {
   const TypeMessage({
     Key? key,
@@ -54,6 +53,7 @@ class _TypeMessageState extends State<TypeMessage> {
                     border: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.black,
+                          width: 5,
                         ),
                         borderRadius: BorderRadius.circular(20)),
                   ),

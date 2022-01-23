@@ -1,4 +1,5 @@
 import 'package:chatapp/screen/home/home.dart';
+import 'package:chatapp/screen/otp/otp_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
@@ -37,17 +38,27 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
     }
   }
 
-  void saveUserDetails(String firstName, String lastName) async {
+  void saveUserDetails(String firstName, String lastName, String pn) async {
     await firebaseFirestore().collection('users').doc(cUser().uid).update({
       'name': firstName.trim() + ' ' + lastName.trim(),
+      'phoneNumber': '+91' + pn,
     });
-
     await auth()
         .currentUser!
         .updateDisplayName(firstName.trim() + ' ' + lastName.trim());
-
+    await auth().verifyPhoneNumber(
+      phoneNumber: '+91' + pn,
+      verificationCompleted: (phoneAuthCredential) async {
+        
+      },
+      verificationFailed: (error) {},
+      codeSent: (verificationId, resendingToken) {
+        veriId = verificationId;
+      },
+      codeAutoRetrievalTimeout: (verificationId) {},
+    );
     Navigator.pushNamedAndRemoveUntil(
-        context, HomeScreen.routeName, (_) => false);
+        context, OtpScreen.routeName, (_) => false);
   }
 
   @override
@@ -60,8 +71,8 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           SizedBox(height: getProportionateScreenHeight(30)),
           buildLastNameFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
-          // buildPhoneNumberFormField(),
-          // SizedBox(height: getProportionateScreenHeight(30)),
+          buildPhoneNumberFormField(),
+          SizedBox(height: getProportionateScreenHeight(30)),
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
@@ -69,7 +80,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
             press: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
-                saveUserDetails(firstName!, lastName!);
+                saveUserDetails(firstName!, lastName!, phoneNumber!);
               }
             },
           ),

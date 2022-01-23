@@ -18,6 +18,9 @@ final headingStyle = TextStyle(
 
 bool forgotSnackBar = false;
 
+late String tempPhoneNumber;
+late String veriId;
+
 const String caNewUserMessage =
     'User with this credentials was not found!. Please check you credientials or signup :)';
 const String caRegistrationFailedMessage =
